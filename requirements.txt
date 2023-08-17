@@ -38,7 +38,6 @@ norbert==0.2.1
 oauthlib==3.2.2
 opt-einsum==3.3.0
 packaging==23.1
-pandas==1.5.3
 Pillow==10.0.0
 proglog==0.1.10
 protobuf==3.19.6
@@ -81,3 +80,4 @@ zipp==3.16.2
 h5py
 importlib-metadata
 numpy
+pandas
