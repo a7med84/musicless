@@ -71,7 +71,6 @@ uvloop==0.17.0
 watchfiles==0.19.0
 websockets==11.0.3
 wrapt==1.15.0
-zipp==3.16.2
 h5py
 importlib-metadata
 numpy
@@ -81,3 +80,4 @@ python-dotenv
 scipy
 uvicorn
 Werkzeug
+zipp
