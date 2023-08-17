@@ -27,7 +27,6 @@ hyperframe==6.0.1
 idna==3.4
 imageio==2.31.1
 imageio-ffmpeg==0.4.8
-importlib-metadata==6.8.0
 Jinja2==3.1.2
 keras==2.9.0
 Keras-Preprocessing==1.1.2
@@ -81,3 +80,4 @@ Werkzeug==2.3.6
 wrapt==1.15.0
 zipp==3.16.2
 h5py
+importlib-metadata
