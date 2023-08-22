@@ -1,43 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{ lang }}" dir="{{ dir}}">
+{% extends 'base.html' %}
+    {% block style %} 
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    {% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title localization-key="title"></title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/img/logo-no-background.svg') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rye|Sofia|Reem Kufi|Lateef">
-    <link href="{{ url_for('static', path='/css/bootstrap.rtl.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
-</head>
-
-<body>
-    <div class="container">
-        <div class="px-4 py-5 my-5 text-center">
-            <img class="d-block mx-auto mb-4" src="{{ url_for('static', path='/img/logo-no-background.svg') }}"
-                alt="Music Logo" width="150">
-            <h1 style="color: #ff2020;" localization-key="title"></h1>
-            <h6 style="color: #ff2020;" localization-key="slogan"></h1>
-            <div class="col-lg-9 col-xl-8 col-xx-7 mx-auto my-4">
-                <p class="lead mb-4" localization-key="description"></p>
-                <div class="input-group mb-2">
-                    <input id="fileinput" class="form-control rounded" name="file" type="file" accept="audio/*,video/*">
-                    <span style="min-width: 0.5em;"></span>
-                    <button id="submitbtn" class="btn btn-danger rounded" type="button" disabled
-                        localization-key="submitBtn"></button>
-                    <div id="invalidFeedback" class="invalid-feedback px-3" style="text-align: start!important;"
-                        localization-key="fileError"></div>
+    {% block content %} 
+        <div class="container my-5 py-5">
+            <div class="px-4 py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="{{ url_for('static', path='/img/logo-no-background.svg') }}"
+                    alt="Music Logo" width="150">
+                <h1 style="color: #ff2020;" localization-key="title"></h1>
+                <h6 style="color: #ff2020;" localization-key="slogan"></h1>
+                <div class="col-lg-9 col-xl-8 col-xx-7 mx-auto my-4">
+                    <p class="lead mb-4" localization-key="description"></p>
+                    <div class="input-group mb-2">
+                        <input id="fileinput" class="form-control rounded" name="file" type="file" accept="audio/*,video/*">
+                        <span style="min-width: 0.5em;"></span>
+                        <button id="submitbtn" class="btn btn-danger rounded" type="button" disabled
+                            localization-key="submitBtn"></button>
+                        <div id="invalidFeedback" class="invalid-feedback px-3" style="text-align: start!important;"
+                            localization-key="fileError"></div>
+                    </div>
                 </div>
+                <div id="successAlert" class="alert alert-primary d-none" role="alert">
+                    <span class="fs-4">
+                        <span localization-key="success"></span>
+                        <strong>
+                            <a id="fileLink" href="#" class="alert-link" localization-key="download"></a>
+                        </strong>
+                    </span><br>
+                </div>
+                <div id="errorAlert" class="alert alert-danger d-none" role="alert" localization-key="error"></div>
             </div>
-            <div id="successAlert" class="alert alert-primary d-none" role="alert">
-                <span class="fs-4">
-                    <span localization-key="success"></span>
-                    <strong>
-                        <a id="fileLink" href="#" class="alert-link" localization-key="download"></a>
-                    </strong>
-                </span><br>
-            </div>
-            <div id="errorAlert" class="alert alert-danger d-none" role="alert" localization-key="error"></div>
             <div class="modal" id="loadingModal" style="z-index: 10;">
                 <div class="modal-content">
                     <div class="alert alert-info mx-auto" role="alert">
@@ -48,34 +41,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="fixed-bottom d-flex flex-wrap justify-content-between align-items-center py-3 px-5 border-top">
-        <div class="col d-flex align-items-center">
-            <small>
-                <span class="mb-3 mb-md-0 text-muted">
-                    <span localization-key="rights">Copyright ©</span>
-                    <a href="https://wide-techno.com/" target="new" localization-key="wt"></a>
-                    <span>
-                        <script>document.write(new Date().getFullYear())</script>
-                    </span>
-                    <span localization-key="ksa"></span>
-                </span>
-            </small>
-        </div>
-        <ul class="nav justify-content-end list-unstyled d-flex">
-            <li class="ms-3">
-                <button id="langBtn" type="button" class="btn btn-link" data-lang="{{ lang }}">
-                    <img id="iconAr" src="{{ url_for('static', path='/img/arab.svg') }}" height="32"
-                        style="display: block;">
-                    <img id="iconEn" src="{{ url_for('static', path='/img/us.svg') }}" height="32"
-                        style="display: none;">
-                </button>
-            </li>
-        </ul>
-    </footer>
-    <script src=" {{ url_for('static', path='/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', path='/js/i18n.js') }}"></script>
-    <script src="{{ url_for('static', path='/js/controller.js') }}"></script>
-</body>
+    {% endblock %}
 
-</html>
+    {% block script %} 
+        <script src="{{ url_for('static', path='/js/i18n.js') }}"></script>
+        <script src="{{ url_for('static', path='/js/controller.js') }}"></script>
+    {% endblock %}

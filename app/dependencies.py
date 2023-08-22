@@ -1,11 +1,10 @@
-from fastapi import UploadFile, Header, Form
+from fastapi import UploadFile, Request, Form
 from fastapi.exceptions import HTTPException
 from typing_extensions import Annotated
-from typing import List, Union
 
 from uuid import uuid4
 from spleeter.separator import Separator
-from moviepy.editor import VideoFileClip, AudioFileClip
+from moviepy.editor import VideoFileClip
 from shutil import copyfileobj, rmtree
 from os import mkdir, rename, path
 
@@ -86,4 +85,37 @@ def _new_dir() -> str:
         return _new_dir()
 
 
-# docker run -p 8000:8000 <your_image_name>
+# manage files
+def list_files(request: Request):
+    import os
+    from pathlib import Path
+    from datetime import datetime, timedelta
+    
+    paths = []
+    if path.exists('temp'):
+        paths = sorted(Path('temp').iterdir(), key=os.path.getmtime)
+        paths = [
+            {
+                'name': p.name,
+                'files': os.listdir(p),
+                'size': round(sum(f.stat().st_size for f in p.glob('**/*') if f.is_file()) /1024/1024, 2),
+                'modified': datetime.fromtimestamp(p.stat().st_mtime)
+            } for p in paths
+            ]
+    return {
+            "request": request, "lang": 1, "paths":paths,
+            'now': datetime.now(),
+            'today':datetime.today().date(), 
+            'yesterday':datetime.today().date() - timedelta(days=1),
+            'weekb4': datetime.today().date() - timedelta(days=7),
+            }
+
+
+def delete_files(names: Annotated[str, Form()]):
+    try:
+        for dir in names.strip().split():
+            rmtree(f'temp/{dir}')
+    except Exception as e:
+        print(e)
+        return False
+    return True

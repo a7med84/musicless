@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Depends, Request
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.exceptions import HTTPException
 from typing_extensions import Annotated
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import starlette.status as status
 from fastapi.openapi.docs import (
     get_redoc_html,
     get_swagger_ui_html,
@@ -56,15 +57,23 @@ async def download(file_path: str):
     return FileResponse(file_path, media_type='application/octet-stream', filename=file_path.split('/')[-1])
 
 
+@app.post("/files/delete", include_in_schema=False)
+def musicless(res: Annotated[bool, Depends(delete_files)]):
+    return RedirectResponse('../files/all', status_code=status.HTTP_302_FOUND)
+
 ################## Simple Front ##################
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 async def main(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "lang": 0})
 
 @app.get("/ar", response_class=HTMLResponse, include_in_schema=False)
-async def main(request: Request):
+async def main_ar(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "lang": 0})
 
 @app.get("/en", response_class=HTMLResponse, include_in_schema=False)
-async def main(request: Request):
+async def main_en(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "lang": 1})
+
+@app.get("/files/all", response_class=HTMLResponse, include_in_schema=False)
+async def files(paths: Annotated[dict, Depends(list_files)]):
+    return templates.TemplateResponse("files.html", paths)

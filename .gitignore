@@ -2,6 +2,7 @@ __pycache__
 *.pyc
 *.log
 .git/*
-Dockerfile
-.dockerignore
-pretrained_models/*
+temp/*
+._checkpoint
+.probe
+pretrained_models/

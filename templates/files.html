@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+    {% block style %} 
+    {% endblock %}
+
+    {% block content %} 
+        <div class="container my-5 py-5">
+            <div class="px-4 py-5 text-center">
+                {% if paths %}
+                    <form action="/files/delete"  method="POST">
+                        <label for="names" style="display: none;"></label>
+                        <input type="text" name="names" id="names" style="display: none;">
+                        <button type="button" id="submitBtn" class="btn btn-danger" localization-key="delete_files"></button>
+                    </form>
+                        <div class="table-responsive my-4">
+                            <table class="table table-hover">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <td localization-key="dir_name"></td>
+                                        <td localization-key="dir_files"></td>
+                                        <td localization-key="dir_size"></td>
+                                        <td localization-key="modified"></td>
+                                        <td> 
+                                            <div class="form-check">
+                                                <input class="form-check-input" id="all" type="checkbox" />
+                                                <label class="form-check-label" for="all" localization-key="selc_all">Select all</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for p in paths %}
+                                        <tr>
+                                            <td data-id="{{ p.id }}">{{ p.name }}</td>
+                                            <td>
+                                                {% for f in p.files %}
+                                                    {{ f }}
+                                                    {% if not loop.last %}
+                                                        <hr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </td>
+                                            <td>{{ p.size }}</td>
+                                            <td dir="ltr">
+                                                {% if p.modified.date() == today %}
+                                                    {{ p.modified.strftime('%I:%M %p') }}
+                                                {% elif p.modified.date() == yesterday %}
+                                                    Yesterday
+                                                {% elif p.modified.date() >= weekb4 %}
+                                                    {{ p.modified.strftime('%A') }}
+                                                {% else %}
+                                                    {{ p.modified.strftime('%d %b %Y') }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input sub" id="{{p.name}}" type="checkbox">
+                                                    <label class="form-check-label" for="{{p.name}}" style="display: none;"></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <p>No Files</p>
+                        </div>
+                    {% endif %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block script %}
+    <script src="{{ url_for('static', path='/js/i18n.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/selectall.js') }}"></script>
+    {% endblock %}

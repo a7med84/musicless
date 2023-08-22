@@ -36,7 +36,18 @@
             "wt": " التقنية الموسعة ",
 
             "ksa": "، المملكة العربية السعودية",
-                    
+
+            "dir_name": "المجلد",
+
+            "dir_files": "الملفات",
+
+            "dir_size": "الحجم (ميغابايت)",
+
+            "modified": "التاريخ",
+
+            "selc_all": "تحديد الكل",
+
+            "delete_files": "حذف المحدد"             
         }
     };
     
@@ -75,6 +86,18 @@
             "wt": " Wide Technology ",
 
             "ksa": ", Kingdom of Saudi Arabia",
+
+            "dir_name": "Directory",
+
+            "dir_files": "Files",
+
+            "dir_size": "Size (MB)",
+
+            "modified": "Modified",
+
+            "selc_all": "Select all",
+
+            "delete_files": "Delete Selected"  
                     
         }
     };
