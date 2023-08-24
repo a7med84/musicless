@@ -3,3 +3,5 @@ __pycache__
 *.log
 .git*
 temp
+pretrained_models
+devlop-main.py

@@ -13,6 +13,10 @@ def remove_music(file: UploadFile) -> str:
     # Ensure the file is audio or video
     if not any([x in file.content_type for x in ['audio', 'video']]):
         raise HTTPException(status_code=400, detail="Invalid file type")
+
+    # check the file size
+    if file.size > 1024 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="File size must be less than 1GB")
     
     # create direcory in temp folder
     new_dir = _new_dir()

@@ -120,10 +120,10 @@
             return;
         }
 
-        if (file.size > 100 * 1024 * 1024) {
+        if (file.size > 1024 * 1024 * 1024) {
             btn.disabled = true;
             input.classList.add("is-invalid");
-            feedback.textContent = document.documentElement.lang == "ar" ? "أقصى حجم للملف 100 ميغابايت" : "Maximum allowed size: 100 MB";
+            feedback.textContent = document.documentElement.lang == "ar" ? "أقصى حجم للملف 1 غيغابايت" : "Maximum allowed size: 1GB";
             feedback.setAttribute("localization-key", "fileSizeError");
             return;
         }
